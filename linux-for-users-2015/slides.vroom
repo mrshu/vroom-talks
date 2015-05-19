@@ -1,0 +1,207 @@
+# This is a sample Vroom input file. It should help you get started.
+#
+# Edit this file with your content. Then run `vroom vroom` to start
+# the show!
+#
+# See `perldoc Vroom` for complete details.
+#
+---- config
+# Basic config options.
+title: Closing words via Vroom!
+indent: 5
+auto_size: 1
+# height: 18
+# width: 69
+vim_opts: '-u NONE'
+skip: 0
+
+# The following options are for Gvim usage.
+# vim: gvim
+# gvimrc: |
+#   set fuopt=maxhorz,maxvert
+#   set guioptions=egmLtT
+#   set guifont=Bitstream_Vera_Sans_Mono:h18
+#   set guicursor=a:blinkon0-ver25-Cursor
+#   colorscheme default
+
+---- center
+== Stories from trenches
+
+19.05.2015 / Peter Polacik, Marek Suppa
+
+---- center
+== Linux pre pouzivatelov
+
++* Linux?
++* For _users_?
+
+----
+== Why Linux?
+
++* Like it or not, it's (nearly) everywhere
++* UNIX is really everywhere
++* It aims to be POSIX compliant (and shares the UNIX heritage)
+
+  Linux is a Unix clone written from scratch by Linus Torvalds with
+  assistance from a loosely-knit team of hackers across the Net. It aims
+  towards POSIX compliance.
+
+                -- Linux kernel README
+
++* In practice, the end user experience is very similar everywhere.
++* Linux, however, is just a kernel.
+
+----
+== GNU/Linux
+
++* To make things even and make RMS happy let's talk about GNU/Linux
++* The core of this course are the GNU coreutils
+
+   I never ever used a UNIX until I decided to build my own clone.
+
+                -- rms
+
++* Userspace programs + kernel == distribution
+----
+== The UNIX way
+
++* Make programs that do one thing and do it well
++* We saw some examples:
+   * ls
+   * cd
+   * mv
+   * rm
+   * mkdir
+   * cat
+   * tr
+   * find
+   * sort
+   * xargs
+   * ...
+
++* Their combination gives you great power
++* To combine them though we need some glue
+
+----
+== bash
++* Again, you can find it practically everywhere
++* Built to be extremely versatile
+   * command center
+   * simple programming language
+   * a solid building block
+
+----
+== DEMO TIME
+
++* Joe would like to listen to a random music file from a folder he specifies.
+
+---- shell,i4
+#!/bin/bash
+DIR=$1
+
+files=($DIR/*)
+n_files=${#files[@]}
+random=$RANDOM
+random_id=$(($random % $n_files))
+echo ${files[$random_id]}
+---- shell,i4
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+        echo "usage: $0 [directory]"
+        exit 1
+fi
+
+DIR=$1
+
+files=($DIR/*)
+n_files=${#files[@]}
+random=$RANDOM
+random_id=$(($random % $n_files))
+echo ${files[$random_id]}
+---- shell,i4
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+        echo "usage: $0 [directory]"
+        exit 1
+fi
+
+DIR=$1
+
+if [ ! -d $DIR ]; then
+        echo "error: $DIR doesn't look like a directory"
+        exit 1
+fi
+
+files=($DIR/*)
+n_files=${#files[@]}
+random=$RANDOM
+random_id=$(($random % $n_files))
+echo ${files[$random_id]}
+---- shell,i4
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+        echo "usage: $0 [directory]"
+        exit 1
+fi
+
+DIR=$1
+
+if [ ! -d $DIR ]; then
+        echo "error: $DIR doesn't look like a directory"
+        exit 1
+fi
+
+echo $(shuf -n1 -e $DIR/*)
+---- shell,i4
+
+#!/bin/bash
+DIR=${1:-.}
+
+if [ ! -d $DIR ]; then
+        echo "error: $DIR doesn't look like a directory"
+        exit 1
+fi
+
+echo $(shuf -n1 -e $DIR/*)
+----
+== Linux pre pouzivatelov
+
++* Linux pre _pouzivatelov_
+
++* Contrary to popular belief, Unix is user friendly. It just happens to be
+   very selective about who it decides to make friends with.  -- unknown
+
++* Learn to _use_ the tools Linux provides
+
++* Quick example: vim and the home row
+
+----
+
+== DEMO TIME - Hipsteries
+
+* bash
+  * vi mode
+  * PS1 customization
+* tmux
+* vim plugins
+  * airline
+  * syntastic
+  * tagbar + easytags
+  * slime
+
+----
+== :wq
+
++* Good luck, and have fun!
+
++* That's what this Linux is about anyway.
+
+----
+
+== Should you need something
+
++* Room: NaN
++* Email: polacik9@uniba.sk, suppa1@uniba.sk

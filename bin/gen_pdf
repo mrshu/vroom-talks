@@ -1,0 +1,12 @@
+#! /bin/bash
+# A losely edited version of the original vroom's gen_pdf
+# (https://gist.github.com/barefootcoder/5654521) 
+# Note that `pdfmerge` is also necessary
+
+vroom html
+vroom compile
+for slide in $(ls 0* | perl -lne 'print "html/$_.html"'); do
+        wkhtmltopdf -O Landscape $slide $slide.pdf
+done
+
+pdfmerge $(ls 0* | perl -lne 'print "html/$_.html.pdf"') slides.pdf
